@@ -31,12 +31,10 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 // want these to be as small/large as possible without hitting the hard stop
 // for max range. You'll have to tweak them as necessary to match the servos you
 // have!
-#define SERVOMIN  150 // this is the 'minimum' pulse length count (out of 4096)
-#define SERVOMAX  600 // this is the 'maximum' pulse length count (out of 4096)
+#define SERVOMIN 150 // this is the 'minimum' pulse length count (out of 4096)
+#define SERVOMAX 600 // this is the 'maximum' pulse length count (out of 4096)
 
-unsigned long timimmg[5];
 unsigned long periodRuning;
-unsigned long currentMillis;
 
 int LEFT_HAND_FIRST = 0;
 int LEFT_HAND_TWO = 1;
@@ -47,126 +45,156 @@ int RIGHT_HAND_TWO = 3;
 int BOTTOM_LEFT_HAND_FIRST = 4;
 int BOTTOM_LEFT_HAND_TWO = 5;
 
-bool test[3];
+void setup()
+{
+    Serial.begin(9600);
+    Serial.println("8 cha");
 
-// our servo # counter
-uint8_t servonum = 0;
+    pwm.begin();
 
-void setup() {
-  Serial.begin(9600);
-  Serial.println("8 cha");
-
-  pwm.begin();
-
-  pwm.setPWMFreq(60);  // Analog servos run at ~60 Hz updates
-
-
+    pwm.setPWMFreq(60); // Analog servos run at ~60 Hz updates
 }
 
-void setServo(int port, int angle) {
+void setServo(int port, int angle)
+{
 
-  pwm.setPWM(port, 0, angle);
+    pwm.setPWM(port, 0, angle);
 }
 
+// --------------------- two hand ------------
 // left Hand and two Servo
-void leftHandTwoUp ()  {
-  setServo(LEFT_HAND_TWO, 150);
+// max 200
+//  min 150
+int maxTwoHand = 200;
+int minTwoHand = 150;
 
-}
-void leftHandTwoDown () {
-  setServo(LEFT_HAND_TWO, 300);
+void leftHandTwoUp()
+{
 
+    setServo(LEFT_HAND_TWO, minTwoHand);
 }
-// left Hand and first servo
-void leftHandUp () {
-  setServo(LEFT_HAND_FIRST, 300);
+void leftHandTwoDown()
+{
+    setServo(LEFT_HAND_TWO, maxTwoHand);
 }
-void leftHandDown () {
-  setServo(LEFT_HAND_FIRST, 150);
+// bottom left  Hand and two servo
+// max 200
+//  min 150
+void bottomLeftTwoServoUp()
+{
+    setServo(BOTTOM_LEFT_HAND_TWO, minTwoHand);
 }
-
-
-// right Hand and first servo
-void rightHandUp () {
-  setServo(RIGHT_HAND_FIRST, 150);
-}
-void rightHandDown () {
-  setServo(RIGHT_HAND_FIRST, 350);
+void bottomLeftTwoDown()
+{
+    setServo(BOTTOM_LEFT_HAND_TWO, maxTwoHand);
 }
 
 // right Hand and two servo
-void rightHandTwoUp () {
-  setServo(RIGHT_HAND_TWO, 350);
+// max 200
+//  min 150
+void rightHandTwoUp()
+{
+    setServo(RIGHT_HAND_TWO, minTwoHand);
 }
-void rightHandTwoDown () {
-  setServo(RIGHT_HAND_TWO, 150);
+void rightHandTwoDown()
+{
+    setServo(RIGHT_HAND_TWO, maxTwoHand);
 }
 
+// --------------------- two hand ------------
+// --------------------- first hand ------------
+
+// left Hand and first servo
+// max 350
+//  min 150
+void leftHandUp()
+{
+    setServo(LEFT_HAND_FIRST, 350);
+}
+void leftHandDown()
+{
+    setServo(LEFT_HAND_FIRST, 150);
+}
+
+// right Hand and first servo
+// max 150
+//  min 350
+void rightHandUp()
+{
+    setServo(RIGHT_HAND_FIRST, 150); // 150
+}
+void rightHandDown()
+{
+    setServo(RIGHT_HAND_FIRST, 350);
+}
 
 // bottom left Hand and one servo
-void bottomLeftOneServoUp () {
-  setServo(BOTTOM_LEFT_HAND_FIRST, 150);
+// max 350
+//  min 150
+void bottomLeftOneServoUp()
+{
+    setServo(BOTTOM_LEFT_HAND_FIRST, 350); // 350
 }
-void bottomLeftOneServoDown () {
-  setServo(BOTTOM_LEFT_HAND_FIRST, 150);
+void bottomLeftOneServoDown()
+{
+    setServo(BOTTOM_LEFT_HAND_FIRST, 150);
 }
-// bottom left  Hand and two servo
-void bottomLeftTwoServoUp () {
-  setServo(BOTTOM_LEFT_HAND_TWO, 150);
-}
-void bottomLeftTwoDown () {
-  setServo(BOTTOM_LEFT_HAND_TWO, 150);
-}
+// --------------------- first hand ------------
 
-
-
-void delyServo(void runFunc(), int currentdely, int currentdely1) {
-  if (periodRuning > currentdely && periodRuning < currentdely1) {
-    runFunc();
-  }
+void delyServo(void runFunc(), int currentdely, int currentdely1)
+{
+    if (periodRuning > currentdely && periodRuning < currentdely1)
+    {
+        runFunc();
+    }
 }
 
-void LeftHand () {
-  //  Поднять ногу в верх
-  delyServo(leftHandTwoUp, 0, 1000);
-  //  //  Опустить ногу в низ
-  delyServo(leftHandTwoDown, 1000, 2000);
-  //  Предвинуть ногу в перед
-  delyServo(leftHandUp, 0, 2000);
-  //  Отодвинуть ногу назад
-  delyServo(leftHandDown, 2000, 4000);
+void LeftHand()
+{
+    //  Поднять ногу в верх
+    delyServo(leftHandTwoUp, 0, 1000);
+    //  //  Опустить ногу в низ
+    delyServo(leftHandTwoDown, 1000, 2000);
+    //  Предвинуть ногу в перед
+    delyServo(leftHandUp, 0, 2000);
+    //  Отодвинуть ногу назад
+    delyServo(leftHandDown, 2000, 4000);
 }
 
-void rightHand () {
-  //  Поднять ногу в верх
-  delyServo(rightHandTwoUp, 2000, 3000);
-  //  Поднять ногу в низ
-  delyServo(rightHandTwoDown, 3000, 4000);
-  //  Предвинуть ногу в перед
-  delyServo(rightHandUp, 2000, 4000);
-  //  Предвинуть ногу в назад
-  delyServo(rightHandDown, 5000, 6000);
+void rightHand()
+{
+    //  Поднять ногу в верх
+    delyServo(rightHandTwoUp, 4000, 5000);
+    //  Поднять ногу в низ
+    delyServo(rightHandTwoDown, 5000, 6000);
+    //  Предвинуть ногу в перед
+    delyServo(rightHandUp, 4000, 6000);
+    //  Предвинуть ногу в назад
+    delyServo(rightHandDown, 6000, 8000);
 }
 
-void leftButtonHend () {
-  delyServo(bottomLeftTwoServoUp, 2000, 3000);
-  delyServo(bottomLeftTwoDown, 3000, 4000);
+void leftButtonHand()
+{
+    delyServo(bottomLeftTwoServoUp, 8000, 9000);
+    delyServo(bottomLeftTwoDown, 9000, 10000);
 
-  delyServo(bottomLeftOneServoUp, 2000, 4000);
-  delyServo(bottomLeftOneServoDown, 5000, 6000);
+    delyServo(bottomLeftOneServoUp, 8000, 10000);
+    delyServo(bottomLeftOneServoDown, 10000, 12000);
 }
 
+void loop()
+{
 
-
-void loop() {
-
-  if (periodRuning < 9000) {
-    periodRuning = periodRuning + 1;
-  } else {
-    periodRuning = 0;
-  }
-  // Left hand
-  LeftHand();
-  rightHand();
-  leftButtonHend();
+    if (periodRuning < 12000)
+    {
+        periodRuning = periodRuning + 5;
+    }
+    else
+    {
+        periodRuning = 0;
+    }
+    // Left hand
+    LeftHand();
+    rightHand();
+    leftButtonHand();
 }
