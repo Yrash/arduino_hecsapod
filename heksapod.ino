@@ -34,9 +34,7 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 #define SERVOMIN 150 // this is the 'minimum' pulse length count (out of 4096)
 #define SERVOMAX 600 // this is the 'maximum' pulse length count (out of 4096)
 
-unsigned long timimmg[5];
 unsigned long periodRuning;
-unsigned long currentMillis;
 
 int LEFT_HAND_FIRST = 0;
 int LEFT_HAND_TWO = 1;
@@ -46,11 +44,6 @@ int RIGHT_HAND_TWO = 3;
 
 int BOTTOM_LEFT_HAND_FIRST = 4;
 int BOTTOM_LEFT_HAND_TWO = 5;
-
-bool test[3];
-
-// our servo # counter
-uint8_t servonum = 0;
 
 void setup()
 {
@@ -69,18 +62,46 @@ void setServo(int port, int angle)
 }
 
 // left Hand and two Servo
+// max 200
+//  min 150
 void leftHandTwoUp()
 {
-    setServo(LEFT_HAND_TWO, 150);
+    setServo(LEFT_HAND_TWO, 200);
 }
 void leftHandTwoDown()
 {
-    setServo(LEFT_HAND_TWO, 300);
+    setServo(LEFT_HAND_TWO, 150); // 200
 }
+// bottom left  Hand and two servo
+// max 200
+//  min 150
+void bottomLeftTwoServoUp()
+{
+    setServo(BOTTOM_LEFT_HAND_TWO, 200);
+}
+void bottomLeftTwoDown()
+{
+    setServo(BOTTOM_LEFT_HAND_TWO, 150); // 200
+}
+
+// right Hand and two servo
+// max 150
+//  min 200
+void rightHandTwoUp()
+{
+    setServo(RIGHT_HAND_TWO, 150);
+}
+void rightHandTwoDown()
+
+{
+
+    setServo(RIGHT_HAND_TWO, 200); //
+}
+
 // left Hand and first servo
 void leftHandUp()
 {
-    setServo(LEFT_HAND_FIRST, 300);
+    setServo(LEFT_HAND_FIRST, 150); // 350
 }
 void leftHandDown()
 {
@@ -90,45 +111,26 @@ void leftHandDown()
 // right Hand and first servo
 void rightHandUp()
 {
-    setServo(RIGHT_HAND_FIRST, 150);
+    setServo(RIGHT_HAND_FIRST, 350); // 150
 }
 void rightHandDown()
 {
     setServo(RIGHT_HAND_FIRST, 350);
 }
 
-// right Hand and two servo
-void rightHandTwoUp()
-{
-    setServo(RIGHT_HAND_TWO, 350);
-}
-void rightHandTwoDown()
-{
-    setServo(RIGHT_HAND_TWO, 150);
-}
-
 // bottom left Hand and one servo
 void bottomLeftOneServoUp()
 {
-    setServo(BOTTOM_LEFT_HAND_FIRST, 150);
+    setServo(BOTTOM_LEFT_HAND_FIRST, 350);
 }
 void bottomLeftOneServoDown()
 {
     setServo(BOTTOM_LEFT_HAND_FIRST, 150);
 }
-// bottom left  Hand and two servo
-void bottomLeftTwoServoUp()
-{
-    setServo(BOTTOM_LEFT_HAND_TWO, 150);
-}
-void bottomLeftTwoDown()
-{
-    setServo(BOTTOM_LEFT_HAND_TWO, 150);
-}
 
-void delayServo(void runFunc(), int startAnimation, int endAnimation)
+void delyServo(void runFunc(), int currentdely, int currentdely1)
 {
-    if (periodRuning > startAnimation && periodRuning < endAnimation)
+    if (periodRuning > currentdely && periodRuning < currentdely1)
     {
         runFunc();
     }
@@ -137,42 +139,42 @@ void delayServo(void runFunc(), int startAnimation, int endAnimation)
 void LeftHand()
 {
     //  Поднять ногу в верх
-    delayServo(leftHandTwoUp, 0, 1000);
+    delyServo(leftHandTwoUp, 0, 1000);
     //  //  Опустить ногу в низ
-    delayServo(leftHandTwoDown, 1000, 2000);
+    delyServo(leftHandTwoDown, 1000, 2000);
     //  Предвинуть ногу в перед
-    delayServo(leftHandUp, 0, 2000);
+    delyServo(leftHandUp, 0, 2000);
     //  Отодвинуть ногу назад
-    delayServo(leftHandDown, 2000, 4000);
+    delyServo(leftHandDown, 2000, 4000);
 }
 
 void rightHand()
 {
     //  Поднять ногу в верх
-    delayServo(rightHandTwoUp, 2000, 3000);
+    delyServo(rightHandTwoUp, 4000, 5000);
     //  Поднять ногу в низ
-    delayServo(rightHandTwoDown, 3000, 4000);
+    delyServo(rightHandTwoDown, 5000, 6000);
     //  Предвинуть ногу в перед
-    delayServo(rightHandUp, 2000, 4000);
+    delyServo(rightHandUp, 4000, 6000);
     //  Предвинуть ногу в назад
-    delayServo(rightHandDown, 5000, 6000);
+    delyServo(rightHandDown, 6000, 8000);
 }
 
-void leftButtonHend()
+void leftButtonHand()
 {
-    delayServo(bottomLeftTwoServoUp, 2000, 3000);
-    delayServo(bottomLeftTwoDown, 3000, 4000);
+    delyServo(bottomLeftTwoServoUp, 8000, 9000);
+    delyServo(bottomLeftTwoDown, 9000, 10000);
 
-    delayServo(bottomLeftOneServoUp, 2000, 4000);
-    delayServo(bottomLeftOneServoDown, 5000, 6000);
+    delyServo(bottomLeftOneServoUp, 8000, 10000);
+    delyServo(bottomLeftOneServoDown, 10000, 12000);
 }
 
 void loop()
 {
 
-    if (periodRuning < 9000)
+    if (periodRuning < 12000)
     {
-        periodRuning = periodRuning + 1;
+        periodRuning = periodRuning + 2;
     }
     else
     {
@@ -181,5 +183,5 @@ void loop()
     // Left hand
     LeftHand();
     rightHand();
-    leftButtonHend();
+    leftButtonHand();
 }
