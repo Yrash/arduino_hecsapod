@@ -61,47 +61,55 @@ void setServo(int port, int angle)
     pwm.setPWM(port, 0, angle);
 }
 
+// --------------------- two hand ------------
 // left Hand and two Servo
 // max 200
 //  min 150
+int maxTwoHand = 200;
+int minTwoHand = 150;
+
 void leftHandTwoUp()
 {
-    setServo(LEFT_HAND_TWO, 200);
+
+    setServo(LEFT_HAND_TWO, maxTwoHand);
 }
 void leftHandTwoDown()
 {
-    setServo(LEFT_HAND_TWO, 150); // 200
+    setServo(LEFT_HAND_TWO, minTwoHand);
 }
 // bottom left  Hand and two servo
 // max 200
 //  min 150
 void bottomLeftTwoServoUp()
 {
-    setServo(BOTTOM_LEFT_HAND_TWO, 200);
+    setServo(BOTTOM_LEFT_HAND_TWO, maxTwoHand);
 }
 void bottomLeftTwoDown()
 {
-    setServo(BOTTOM_LEFT_HAND_TWO, 150); // 200
+    setServo(BOTTOM_LEFT_HAND_TWO, minTwoHand);
 }
 
 // right Hand and two servo
-// max 150
-//  min 200
+// max 200
+//  min 150
 void rightHandTwoUp()
 {
-    setServo(RIGHT_HAND_TWO, 150);
+    setServo(RIGHT_HAND_TWO, maxTwoHand);
 }
 void rightHandTwoDown()
-
 {
-
-    setServo(RIGHT_HAND_TWO, 200); //
+    setServo(RIGHT_HAND_TWO, minTwoHand);
 }
 
+// --------------------- two hand ------------
+// --------------------- first hand ------------
+
 // left Hand and first servo
+// max 350
+//  min 150
 void leftHandUp()
 {
-    setServo(LEFT_HAND_FIRST, 150); // 350
+    setServo(LEFT_HAND_FIRST, 350);
 }
 void leftHandDown()
 {
@@ -109,9 +117,11 @@ void leftHandDown()
 }
 
 // right Hand and first servo
+// max 150
+//  min 350
 void rightHandUp()
 {
-    setServo(RIGHT_HAND_FIRST, 350); // 150
+    setServo(RIGHT_HAND_FIRST, 150); // 150
 }
 void rightHandDown()
 {
@@ -119,14 +129,17 @@ void rightHandDown()
 }
 
 // bottom left Hand and one servo
+// max 350
+//  min 150
 void bottomLeftOneServoUp()
 {
-    setServo(BOTTOM_LEFT_HAND_FIRST, 350);
+    setServo(BOTTOM_LEFT_HAND_FIRST, 350); // 350
 }
 void bottomLeftOneServoDown()
 {
     setServo(BOTTOM_LEFT_HAND_FIRST, 150);
 }
+// --------------------- first hand ------------
 
 void delyServo(void runFunc(), int currentdely, int currentdely1)
 {
