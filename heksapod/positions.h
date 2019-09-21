@@ -33,7 +33,7 @@ void TOP_LEFT_TWO_MAX() {
 }
 // bottom left  Hand and two servo
 // max 200
-//  min 150
+// min 150
 void BOTTOM_LEFT_TWO_MIN() {
   setServo(BOTTOM_LEFT_TWO, MIN_TWO);
 }
@@ -43,7 +43,7 @@ void BOTTOM_LEFT_TWO_MAX() {
 
 // right Hand and two servo
 // max 200
-//  min 150
+// min 150
 void TOP_RIGHT_TWO_MIN() {
   setServo(TOP_RIGHT_TWO, MIN_TWO);
 }
@@ -56,7 +56,7 @@ void TOP_RIGHT_TWO_MAX() {
 
 // left Hand and first servo
 // max 350
-//  min 150
+// min 150
 void TOP_LEFT_FIRST_MAX() {
   setServo(TOP_LEFT_FIRST, MAX_ONE);
 }
@@ -76,11 +76,11 @@ void TOP_RIGHT_FIRST_MAX() {
 
 // bottom left Hand and one servo
 // max 350
-//  min 150
-void BOTTOM_LEFTT_FIRST_MAX() {
+// min 150
+void BOTTOM_LEFT_FIRST_MAX() {
   setServo(BOTTOM_LEFT_FIRST, MAX_ONE); // 350
 }
-void BOTTOM_LEFTT_FIRST_MIN() {
+void BOTTOM_LEFT_FIRST_MIN() {
   setServo(BOTTOM_LEFT_FIRST, MIN_ONE);
 }
 
