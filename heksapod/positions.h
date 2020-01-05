@@ -11,8 +11,8 @@ int TOP_RIGHT_TWO = 3;
 int BOTTOM_LEFT_FIRST = 4;
 int BOTTOM_LEFT_TWO = 5;
 
-int BOTTOM_RIGHT_FIRST = 7;
-int BOTTOM_RIGHT_TWO = 8;
+int BOTTOM_RIGHT_FIRST = 6;
+int BOTTOM_RIGHT_TWO = 7;
 
 int MAX_TWO = 200;
 int MIN_TWO = 150;
@@ -25,25 +25,37 @@ void setServo(int port, int angle)
   pwm.setPWM(port, 0, angle);
 }
 
+// left hand
+void TOP_LEFT_FIRST_MAX() {
+  setServo(TOP_LEFT_FIRST, 350);
+}
+void TOP_LEFT_FIRST_MIN() {
+  setServo(TOP_LEFT_FIRST, 150);
+}
+
 void TOP_LEFT_TWO_MIN() {
   setServo(TOP_LEFT_TWO, MIN_TWO);
 }
 void TOP_LEFT_TWO_MAX() {
   setServo(TOP_LEFT_TWO, MAX_TWO);
+} 
+
+// bottom left hand 
+void BOTTOM_LEFT_FIRST_MAX() {
+  setServo(BOTTOM_LEFT_FIRST, MIN_TWO); // 350
 }
-// bottom left  Hand and two servo
-// max 200
-// min 150
-void BOTTOM_LEFT_TWO_MIN() {
-  setServo(BOTTOM_LEFT_TWO, MIN_TWO);
-}
-void BOTTOM_LEFT_TWO_MAX() {
-  setServo(BOTTOM_LEFT_TWO, MAX_TWO);
+void BOTTOM_LEFT_FIRST_MIN() {
+  setServo(BOTTOM_LEFT_FIRST, 350);
 }
 
-// right Hand and two servo
-// max 200
-// min 150
+// right hand
+void TOP_RIGHT_FIRST_MIN() {
+  setServo(TOP_RIGHT_FIRST, 350); // 150
+}
+void TOP_RIGHT_FIRST_MAX() {
+  setServo(TOP_RIGHT_FIRST, 150);
+} 
+
 void TOP_RIGHT_TWO_MIN() {
   setServo(TOP_RIGHT_TWO, MIN_TWO);
 }
@@ -51,38 +63,29 @@ void TOP_RIGHT_TWO_MAX() {
   setServo(TOP_RIGHT_TWO, MAX_TWO);
 }
 
+
+
+// right Hand and two servo
+
+
+
 // --------------------- two hand ------------
 // --------------------- first hand ------------
 
 // left Hand and first servo
 // max 350
 // min 150
-void TOP_LEFT_FIRST_MAX() {
-  setServo(TOP_LEFT_FIRST, MAX_ONE);
-}
-void TOP_LEFT_FIRST_MIN() {
-  setServo(TOP_LEFT_FIRST, MIN_ONE);
-}
+
 
 // right Hand and first servo
 // max 150
 //  min 350
-void TOP_RIGHT_FIRST_MIN() {
-  setServo(TOP_RIGHT_FIRST, MIN_ONE); // 150
-}
-void TOP_RIGHT_FIRST_MAX() {
-  setServo(TOP_RIGHT_FIRST, MAX_ONE);
-}
+
 
 // bottom left Hand and one servo
 // max 350
 // min 150
-void BOTTOM_LEFT_FIRST_MAX() {
-  setServo(BOTTOM_LEFT_FIRST, MAX_ONE); // 350
-}
-void BOTTOM_LEFT_FIRST_MIN() {
-  setServo(BOTTOM_LEFT_FIRST, MIN_ONE);
-}
+
 
 void BOTTOM_RIGHT_FIRST_MAX() {
   setServo(BOTTOM_RIGHT_FIRST, MAX_ONE); // 350
