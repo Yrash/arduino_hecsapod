@@ -24,8 +24,20 @@ void setServo(int port, int angle)
 {
   pwm.setPWM(port, 0, angle);
 }
+// if from = 150 and to = 350 
+void servoRotation (int port, int from, int to) {
+  if (from > to) {
+     for (uint16_t microsec = from; microsec > to; microsec--) {
+        pwm.writeMicroseconds(port, microsec);
+      }
+  } else {
+    for (uint16_t microsec = from; microsec < to; microsec++) {
+      pwm.writeMicroseconds(port, microsec);
+    }
+  }
+}
 
-// left hand
+// left hand first
 void TOP_LEFT_FIRST_MAX() {
   setServo(TOP_LEFT_FIRST, 350);
 }
@@ -33,14 +45,18 @@ void TOP_LEFT_FIRST_MIN() {
   setServo(TOP_LEFT_FIRST, 150);
 }
 
+// left hand second
 void TOP_LEFT_TWO_MIN() {
-  setServo(TOP_LEFT_TWO, MIN_TWO);
+  setServo(TOP_LEFT_TWO, 400);
 }
 void TOP_LEFT_TWO_MAX() {
-  setServo(TOP_LEFT_TWO, MAX_TWO);
-} 
+  setServo(TOP_LEFT_TWO, 500);
+}
+void TOP_LEFT_SECOND_DOWN() {
+  setServo(TOP_LEFT_TWO, 300);
+}
 
-// bottom left hand 
+// bottom left hand
 void BOTTOM_LEFT_FIRST_MAX() {
   setServo(BOTTOM_LEFT_FIRST, MIN_TWO); // 350
 }
@@ -54,13 +70,17 @@ void TOP_RIGHT_FIRST_MIN() {
 }
 void TOP_RIGHT_FIRST_MAX() {
   setServo(TOP_RIGHT_FIRST, 150);
-} 
+}
 
+// Rignt hand second
 void TOP_RIGHT_TWO_MIN() {
-  setServo(TOP_RIGHT_TWO, MIN_TWO);
+  setServo(TOP_RIGHT_TWO, 400);
 }
 void TOP_RIGHT_TWO_MAX() {
-  setServo(TOP_RIGHT_TWO, MAX_TWO);
+  setServo(TOP_RIGHT_TWO, 500);
+}
+void TOP_RIGHT_SECOND_DOWN() {
+  setServo(TOP_RIGHT_TWO, 300);
 }
 
 

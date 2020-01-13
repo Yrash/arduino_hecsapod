@@ -6,12 +6,14 @@ unsigned long periodRuning;
 unsigned long speedGo = 8;
 unsigned long formTime = 0;
 
-String currentComand = "start";
+String currentComand = "";
 void setup()
 {
+
   pwm.begin();
-  pwm.setPWMFreq(60);
+  pwm.setPWMFreq(50);
   Serial.begin(9600);
+  Serial.print("Start program");
 }
 
 void delayServo(void runFunc(), int currentdely, int currentdely1)
@@ -64,7 +66,16 @@ void loop()
     Serial.print("TOP_LEFT_FIRST: - ");
     Serial.println(digitalRead(TOP_LEFT_FIRST));
   }
-  if (currentComand.indexOf("settingsMin") > -1)
+  if (currentComand.indexOf("sDown") > -1)
+  {
+    TOP_LEFT_SECOND_DOWN();
+    TOP_RIGHT_SECOND_DOWN();
+    TOP_LEFT_FIRST_MAX();
+    TOP_RIGHT_FIRST_MAX();
+    BOTTOM_LEFT_FIRST_MAX();
+    BOTTOM_RIGHT_FIRST_MAX();
+  }
+  if (currentComand.indexOf("sMin") > -1)
   {
     Serial.println("Start installation");
     TOP_LEFT_FIRST_MIN();
@@ -74,7 +85,7 @@ void loop()
     BOTTOM_LEFT_FIRST_MIN();
     BOTTOM_RIGHT_FIRST_MIN();
   }
-  if (currentComand.indexOf("settingsMax") > -1)
+  if (currentComand.indexOf("sMax") > -1)
   {
     Serial.println("Start installation");
     TOP_LEFT_FIRST_MAX();
@@ -83,5 +94,13 @@ void loop()
     TOP_RIGHT_TWO_MAX();
     BOTTOM_LEFT_FIRST_MAX();
     BOTTOM_RIGHT_FIRST_MAX();
+  }
+  if (currentComand.indexOf("testMax") > -1)
+  {
+    servoRotation(0, 0, 4000);
+    delay(1000);
+    servoRotation(0, 4000, 1000);
+    delay(1000);
+    servoRotation(0, 1000, 4000);
   }
 }
